@@ -227,7 +227,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -285,10 +285,11 @@ MonoBehaviour:
   rollTime: 0.25
   growTime: 0.5
   decreaseTime: 0.5
+  fallTime: 0.5
   rolling: 0
   growing: 0
   decreasing: 0
-  falling: 0
+  fell: 0
   collapsed: 0
   targetRotation: {x: 0, y: 0, z: 0}
   displacement: {x: 0, y: 0, z: 0}

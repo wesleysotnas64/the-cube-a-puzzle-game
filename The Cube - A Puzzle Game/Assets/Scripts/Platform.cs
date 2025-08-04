@@ -6,10 +6,12 @@ public class Platform : MonoBehaviour
     [SerializeField] private int interaction;
     [SerializeField] private Vector3 fallOffset;
     [SerializeField] private float fallTime;
+    [SerializeField] private GameObject fallSensorPrefab;
+    [SerializeField] private Material simplePlatformMaterial;
+
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exit");
         interaction--;
 
         if (interaction <= 0)
@@ -18,12 +20,13 @@ public class Platform : MonoBehaviour
         }
         else if (interaction == 1)
         {
-            // Set platform to simple
+            SetToSimple();
         }
-        else if (interaction == 2)
-        {
-            // Set platfomr to double
-        }
+    }
+
+    private void SetToSimple()
+    {
+        GetComponent<MeshRenderer>().material = simplePlatformMaterial;
     }
 
     IEnumerator FallEnum()
@@ -37,8 +40,12 @@ public class Platform : MonoBehaviour
             yield return null;
             elapsed += Time.deltaTime;
             transform.position = Vector3.Lerp(initial, final, elapsed / fallTime);
+
         }
 
         transform.position = final;
+
+        GameObject fallSensorInstance = Instantiate(fallSensorPrefab);
+        fallSensorInstance.transform.position = initial;
     }
 }

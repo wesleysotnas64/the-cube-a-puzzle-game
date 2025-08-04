@@ -8,12 +8,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float rollTime;
     [SerializeField] private float growTime;
     [SerializeField] private float decreaseTime;
+    [SerializeField] private float fallTime;
 
     [Header("States")]
     [SerializeField] private bool rolling;
     [SerializeField] private bool growing;
     [SerializeField] private bool decreasing;
-    [SerializeField] private bool falling;
+    [SerializeField] private bool fell;
     [SerializeField] private bool collapsed;
 
     [Header("Aux Rotate Attrib")]
@@ -25,15 +26,27 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform cubeTransform;
     [SerializeField] private List<Transform> pivot; //[0] grow | [1] forward | [2] back | [3] left | [4] right 
 
+    void Start()
+    {
+        fell = false;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G)) Grow();
-        if (Input.GetKeyDown(KeyCode.V)) Decrease();
+        // if (Input.GetKeyDown(KeyCode.G)) Grow();
+        // if (Input.GetKeyDown(KeyCode.V)) Decrease();
 
-        if (Input.GetKeyDown(KeyCode.E)) RollForward();
-        if (Input.GetKeyDown(KeyCode.S)) RollBack();
-        if (Input.GetKeyDown(KeyCode.W)) RollLeft();
-        if (Input.GetKeyDown(KeyCode.D)) RollRight();
+        if (fell) return;
+
+        if (Input.GetKeyDown(KeyCode.R)) RollForward();
+        if (Input.GetKeyDown(KeyCode.D)) RollBack();
+        if (Input.GetKeyDown(KeyCode.E)) RollLeft();
+        if (Input.GetKeyDown(KeyCode.F)) RollRight();
+    }
+
+    public void Fall()
+    {
+        StartCoroutine(FallEnum());
     }
 
     public void Grow()
@@ -110,7 +123,8 @@ public class Player : MonoBehaviour
         cubeTransform.position = cubeInitialPosition + displacement;
         pivot[pivotIndex].rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++)
+        {
             pivot[i].position += displacement;
         }
 
@@ -163,5 +177,24 @@ public class Player : MonoBehaviour
 
         decreasing = false;
         collapsed = true;
-    } 
+    }
+
+    IEnumerator FallEnum()
+    {
+        fell = true;
+        yield return new WaitForSeconds(0.2f);
+        Vector3 fallOffset = new(0, -20, 0);
+        Vector3 initial = transform.position;
+        Vector3 final = transform.position + fallOffset;
+
+        float elapsed = 0.0f;
+        while (elapsed < fallTime)
+        {
+            yield return null;
+            elapsed += Time.deltaTime;
+            transform.position = Vector3.Lerp(initial, final, elapsed / fallTime);
+        }
+
+        transform.position = final;
+    }
 }
