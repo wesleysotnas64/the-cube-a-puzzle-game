@@ -6,9 +6,16 @@ public class Platform : MonoBehaviour
     [SerializeField] private int interaction;
     [SerializeField] private Vector3 fallOffset;
     [SerializeField] private float fallTime;
+    [SerializeField] private float enterTime;
     [SerializeField] private GameObject fallSensorPrefab;
     [SerializeField] private Material simplePlatformMaterial;
+    [SerializeField] private SceneController sceneController;
 
+    void Start()
+    {
+        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        StartCoroutine(EnterAnimEnum());
+    }
 
     void OnTriggerExit(Collider other)
     {
@@ -31,6 +38,8 @@ public class Platform : MonoBehaviour
 
     IEnumerator FallEnum()
     {
+        sceneController.CountPlatformFall();
+
         Vector3 initial = transform.position;
         Vector3 final = transform.position + fallOffset;
 
@@ -47,5 +56,21 @@ public class Platform : MonoBehaviour
 
         GameObject fallSensorInstance = Instantiate(fallSensorPrefab);
         fallSensorInstance.transform.position = initial;
+    }
+
+    IEnumerator EnterAnimEnum()
+    {
+        Vector3 initial = Vector3.zero;
+        Vector3 final = transform.localScale;
+
+        float elapsed = 0.0f;
+        while (elapsed < enterTime)
+        {
+            yield return null;
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(initial, final, elapsed / enterTime);
+
+        }
+        transform.localScale = final;
     }
 }

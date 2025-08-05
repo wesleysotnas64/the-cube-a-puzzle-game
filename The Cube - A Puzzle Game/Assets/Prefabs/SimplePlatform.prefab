@@ -51,6 +51,7 @@ MonoBehaviour:
   interaction: 1
   fallOffset: {x: 0, y: -30, z: 0}
   fallTime: 0.5
+  enterTime: 0.25
   fallSensorPrefab: {fileID: 6555648900411054400, guid: bbf45792627ac844fa8ad6a9b19a5d8f, type: 3}
   simplePlatformMaterial: {fileID: 2100000, guid: 46e5b2dc30d628e4094dadced78fa36f, type: 2}
 --- !u!33 &6176168071432634878

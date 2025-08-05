@@ -29,12 +29,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         fell = false;
+        collapsed = true;
+        Decrease();
     }
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.G)) Grow();
-        // if (Input.GetKeyDown(KeyCode.V)) Decrease();
 
         if (fell) return;
 
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
     public void Decrease()
     {
-        if (InAnimation()) return;
+        // if (InAnimation()) return;
         StartCoroutine(DecreaseAnimEnum());
     }
 
@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
         decreasing = true;
 
         Vector3 initialScale = new(1.0f, 1.0f, 1.0f);
-        Vector3 finalScale = new(1.0f, 0.0f, 1.0f);
+        Vector3 finalScale = new(1.0f, 0.01f, 1.0f);
 
         pivot[0].localScale = initialScale;
 
