@@ -10,9 +10,13 @@ public class SceneController : MonoBehaviour
     private readonly int maxLevel = 5;
 
     [SerializeField] private Map map;
+    [SerializeField] private FadeFX fadeFX;
+    [SerializeField] private SwipLevelFX swipLevelFX;
 
     void Start()
     {
+        fadeFX = GameObject.Find("FadeFX_Image").GetComponent<FadeFX>();
+        swipLevelFX = GameObject.Find("TextLevelArea").GetComponent<SwipLevelFX>();
         StartCoroutine(InitLevelEnum());
     }
 
@@ -21,6 +25,7 @@ public class SceneController : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
 
         //Instantiate FadeIn
+        fadeFX.TriggerFadeIn();
         yield return new WaitForSeconds(1.0f);
 
         map = GameObject.Find("Map").GetComponent<Map>();
@@ -35,10 +40,12 @@ public class SceneController : MonoBehaviour
     private IEnumerator FinishLevelEnum()
     {
         //Instantiate FadeOut
+        fadeFX.TriggerFadeOut();
         yield return new WaitForSeconds(1.0f);
 
         //Instantiate swip level effect
-        yield return new WaitForSeconds(1.0f);
+        swipLevelFX.TriggerSwipFX();
+        yield return new WaitForSeconds(1.5f);
 
         ReloadCurrentScene();
     }
