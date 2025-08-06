@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,9 @@ public class SceneController : MonoBehaviour
     [SerializeField] private int totalPlatformCount;
     [SerializeField] private int currentLevel;
     private readonly int maxLevel = 5;
+
+    [SerializeField] private TMP_Text textLevel;
+    [SerializeField] private TMP_Text textPlatform;
 
     [SerializeField] private Map map;
     [SerializeField] private FadeFX fadeFX;
@@ -20,10 +24,21 @@ public class SceneController : MonoBehaviour
         StartCoroutine(InitLevelEnum());
     }
 
+    private void UpdatePlatformCountUI()
+    {
+        textPlatform.text = $"{currentPlatformCount}/{totalPlatformCount}";
+    }
+
+    private void UpdateLevelCountUI()
+    {
+        textLevel.text = $"Level {currentLevel}/{maxLevel}";
+    }
+
     private IEnumerator InitLevelEnum()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-
+        UpdateLevelCountUI();
+        
         //Instantiate FadeIn
         fadeFX.TriggerFadeIn();
         yield return new WaitForSeconds(1.0f);
@@ -53,11 +68,13 @@ public class SceneController : MonoBehaviour
     public void AddPlatformCount()
     {
         totalPlatformCount++;
+        UpdatePlatformCountUI();
     }
 
     public void CountPlatformFall()
     {
         currentPlatformCount++;
+        UpdatePlatformCountUI();
     }
 
     public void VerifyEndLevel(bool isFallEvent = false)
