@@ -18,8 +18,7 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator InitLevelEnum()
     {
-        // PlayerPrefs.SetInt("CurrentLevel", 1);
-        currentLevel = PlayerPrefs.GetInt("CurrentLevel");
+        currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
 
         //Instantiate FadeIn
         yield return new WaitForSeconds(1.0f);

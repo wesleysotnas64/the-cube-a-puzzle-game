@@ -26,8 +26,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform cubeTransform;
     [SerializeField] private List<Transform> pivot; //[0] grow | [1] forward | [2] back | [3] left | [4] right 
 
+    [Header("Components")]
+    [SerializeField] private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         fell = false;
         collapsed = true;
         Decrease();
@@ -100,6 +104,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator RollAnimEnum(int pivotIndex)
     {
+        audioSource.Play();
+
         rolling = true;
 
         Vector3 cubeInitialPosition = cubeTransform.position;

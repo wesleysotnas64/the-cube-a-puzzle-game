@@ -10,10 +10,12 @@ public class Platform : MonoBehaviour
     [SerializeField] private GameObject fallSensorPrefab;
     [SerializeField] private Material simplePlatformMaterial;
     [SerializeField] private SceneController sceneController;
+    [SerializeField] private AudioSource audioSource;
 
     void Start()
     {
         sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(EnterAnimEnum());
     }
 
@@ -72,5 +74,8 @@ public class Platform : MonoBehaviour
 
         }
         transform.localScale = final;
+
+        
+        audioSource.Play();
     }
 }
