@@ -8,10 +8,11 @@ public class SceneController : MonoBehaviour
     [SerializeField] private int currentPlatformCount;
     [SerializeField] private int totalPlatformCount;
     [SerializeField] private int currentLevel;
-    private readonly int maxLevel = 5;
+    public static readonly int maxLevel = 5;
 
     [SerializeField] private TMP_Text textLevel;
     [SerializeField] private TMP_Text textPlatform;
+    [SerializeField] private TMP_Text textMessageTuto;
 
     [SerializeField] private Map map;
     [SerializeField] private FadeFX fadeFX;
@@ -34,11 +35,30 @@ public class SceneController : MonoBehaviour
         textLevel.text = $"Level {currentLevel}/{maxLevel}";
     }
 
+    private void UpdateTutorialMessage()
+    {
+        switch (currentLevel)
+        {
+            case 1:
+                textMessageTuto.text =
+                    "> Move the cube with R, D, E, F keys.<br>" +
+                    "> Simple platforms fall after a single interaction.<br>" +
+                    "> The challenger is to get all the platforms to fall before reaching the exit platform.<br>";
+
+                break;
+
+            default:
+                textMessageTuto.text = "";
+                break;
+        }
+    }
+
     private IEnumerator InitLevelEnum()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
         UpdateLevelCountUI();
-        
+        UpdateTutorialMessage();
+
         //Instantiate FadeIn
         fadeFX.TriggerFadeIn();
         yield return new WaitForSeconds(1.0f);
