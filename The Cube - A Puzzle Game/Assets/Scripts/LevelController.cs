@@ -7,6 +7,7 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField] private int currentPage;
     [SerializeField] private int maxPage;
+    [SerializeField] private int currentLockLevel;
     [SerializeField] private GameObject fadeFXGameObject;
     [SerializeField] private FadeFX fadeFX;
     [SerializeField] private GameObject buttonPreviousPage;
@@ -18,8 +19,10 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+        fadeFXGameObject.SetActive(true);
         fadeFX = fadeFXGameObject.GetComponent<FadeFX>();
         currentPage = 1;
+        currentLockLevel = PlayerPrefs.GetInt("CurrentLockLevel", 1);
 
         maxPage = Mathf.CeilToInt(totalLevels / (float)levelsPerPage);
 
@@ -45,7 +48,14 @@ public class LevelController : MonoBehaviour
 
             if (level <= totalLevels)
             {
-                buttons[i].SetButton(level, false); //Fazer uma verificação com o PlayerPrefs, e ver se o lével está desbloqueado
+                // buttons[i].SetButton(
+                //     level,
+                //     false
+                // );
+                buttons[i].SetButton(
+                    level,
+                    !(level <= currentLockLevel)
+                );
                 buttons[i].Enable();
             }
             else

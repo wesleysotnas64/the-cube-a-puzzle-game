@@ -109,6 +109,11 @@ public class SceneController : MonoBehaviour
             currentLevel++;
             if (currentLevel > maxLevel) currentLevel = 1;
             PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+
+            if (currentLevel > PlayerPrefs.GetInt("CurrentLockLevel"))
+            {
+                PlayerPrefs.SetInt("CurrentLockLevel", currentLevel);
+            }
         }
 
         StartCoroutine(FinishLevelEnum());
