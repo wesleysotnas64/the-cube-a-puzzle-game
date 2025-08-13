@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         fell = false;
         collapsed = true;
-        Decrease();
+        // Decrease();
     }
 
     void Update()

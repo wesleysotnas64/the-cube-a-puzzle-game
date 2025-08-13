@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    [SerializeField] public Vector2Int matrixPosition;
     [SerializeField] private int interaction;
     [SerializeField] private Vector3 fallOffset;
     [SerializeField] private float fallTime;
@@ -19,7 +20,22 @@ public class Platform : MonoBehaviour
         StartCoroutine(EnterAnimEnum());
     }
 
+    public void SetMatrixPosition(int line, int column)
+    {
+        matrixPosition = new(line, column);
+    }
+
+    public Vector2Int GetMatrixPosition()
+    {
+        return matrixPosition;
+    }
+
     void OnTriggerExit(Collider other)
+    {
+        Fall();
+    }
+
+    public void Fall()
     {
         interaction--;
 

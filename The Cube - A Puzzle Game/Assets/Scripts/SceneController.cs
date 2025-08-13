@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] private int currentPlatformCount;
     [SerializeField] private int totalPlatformCount;
     [SerializeField] private int currentLevel;
-    public static readonly int maxLevel = 5;
+    public static readonly int maxLevel = 8;
 
     [SerializeField] private TMP_Text textLevel;
     [SerializeField] private TMP_Text textPlatform;
@@ -44,7 +44,11 @@ public class SceneController : MonoBehaviour
                     "> Move the cube with R, D, E, F keys.<br>" +
                     "> Simple platforms fall after a single interaction.<br>" +
                     "> The challenger is to get all the platforms to fall before reaching the exit platform.<br>";
+                break;
 
+            case 6:
+                textMessageTuto.text =
+                    "> Red platforms are more resistant and require two interactions to fall.";
                 break;
 
             default:
@@ -62,6 +66,7 @@ public class SceneController : MonoBehaviour
         //Instantiate FadeIn
         fadeFX.TriggerFadeIn();
         yield return new WaitForSeconds(1.0f);
+        fadeFX.gameObject.SetActive(false);
 
         map = GameObject.Find("Map").GetComponent<Map>();
 
@@ -75,6 +80,7 @@ public class SceneController : MonoBehaviour
     private IEnumerator FinishLevelEnum()
     {
         //Instantiate FadeOut
+        fadeFX.gameObject.SetActive(true);
         fadeFX.TriggerFadeOut();
         yield return new WaitForSeconds(1.0f);
 
@@ -124,5 +130,19 @@ public class SceneController : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
+
+    public void MenuLevels()
+    {
+        StartCoroutine(MenuLevelsEnum());
+    }
+
+    private IEnumerator MenuLevelsEnum()
+    {
+        fadeFX.gameObject.SetActive(true);
+        fadeFX.TriggerFadeOut();
+        yield return new WaitForSeconds(1.0f);
+
+        SceneManager.LoadScene("Levels");
+    } 
 
 }

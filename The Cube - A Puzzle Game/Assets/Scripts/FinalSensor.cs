@@ -7,12 +7,19 @@ public class FinalSensor : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        InitSetUp();
+    }
+
+    public void InitSetUp()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         audioSource = GetComponent<AudioSource>();
     }
+
     void OnTriggerEnter(Collider other)
     {
+        InitSetUp();
         audioSource.Play();
         player.Decrease();
         sceneController.VerifyEndLevel();
