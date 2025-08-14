@@ -35,7 +35,7 @@ public class SwipLevelFX : MonoBehaviour
         textLastLevel.text = lvLast > 0 ? lvLast.ToString() : "";
         textCurrentLevel.text = lvCurrent > 0 ? lvCurrent.ToString() : "";
         // textNextLevel.text = lvNext.ToString();
-        textNextLevel.text = lvNext > SceneController.maxLevel ? "Soon" : lvNext.ToString();
+        textNextLevel.text = lvNext > Map.maxLevel ? "Soon" : lvNext.ToString();
 
         yield return StartCoroutine(FadeTexts(0f, 1f)); // Fade In
 
@@ -49,7 +49,7 @@ public class SwipLevelFX : MonoBehaviour
         textLastLevel.text = lvLast > 0 ? lvLast.ToString() : "";
         textCurrentLevel.text = lvCurrent > 0 ? lvCurrent.ToString() : "";
         // textNextLevel.text = lvNext.ToString();
-        textNextLevel.text = lvNext > SceneController.maxLevel ? "Soon" : lvNext.ToString();
+        textNextLevel.text = lvNext > Map.maxLevel ? "Soon" : lvNext.ToString();
 
         if (audioSource != null) audioSource.Play();
 

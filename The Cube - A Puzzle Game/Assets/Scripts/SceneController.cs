@@ -8,8 +8,6 @@ public class SceneController : MonoBehaviour
     [SerializeField] private int currentPlatformCount;
     [SerializeField] private int totalPlatformCount;
     [SerializeField] private int currentLevel;
-    public static readonly int maxLevel = 8;
-
     [SerializeField] private TMP_Text textLevel;
     [SerializeField] private TMP_Text textPlatform;
     [SerializeField] private TMP_Text textMessageTuto;
@@ -32,7 +30,7 @@ public class SceneController : MonoBehaviour
 
     private void UpdateLevelCountUI()
     {
-        textLevel.text = $"Level {currentLevel}/{maxLevel}";
+        textLevel.text = $"Level {currentLevel}/{Map.maxLevel}";
     }
 
     private void UpdateTutorialMessage()
@@ -49,6 +47,11 @@ public class SceneController : MonoBehaviour
             case 6:
                 textMessageTuto.text =
                     "> Red platforms are more resistant and require two interactions to fall.";
+                break;
+
+            case 11:
+                textMessageTuto.text =
+                    "> Purple platforms teleport you instantly from one location to another.";
                 break;
 
             default:
@@ -113,7 +116,7 @@ public class SceneController : MonoBehaviour
         else if (currentPlatformCount == totalPlatformCount)
         {
             currentLevel++;
-            if (currentLevel > maxLevel) currentLevel = 1;
+            if (currentLevel > Map.maxLevel) currentLevel = 1;
             PlayerPrefs.SetInt("CurrentLevel", currentLevel);
 
             if (currentLevel > PlayerPrefs.GetInt("CurrentLockLevel"))

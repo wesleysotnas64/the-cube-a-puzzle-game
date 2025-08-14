@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c844ba154661245ab21c5260c38d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matrixPosition: {x: 0, y: 0}
   interaction: 1
   fallOffset: {x: 0, y: -30, z: 0}
   fallTime: 0.5

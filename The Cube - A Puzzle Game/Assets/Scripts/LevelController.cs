@@ -15,7 +15,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] private List<ButtonLevel> buttons;
 
     private readonly int levelsPerPage = 12;
-    private readonly int totalLevels = SceneController.maxLevel;
+    private readonly int totalLevels = Map.maxLevel;
 
     void Start()
     {

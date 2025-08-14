@@ -27,7 +27,6 @@ public class Teleport : MonoBehaviour
         if (!isActiveToTeleport) return;
         goTo.SetIsActiveToTeleport(false);
 
-        //Antes tem que salvar o player atual em um ponteiro
         Player currentPlayer = GameObject.FindWithTag("Player").GetComponent<Player>();
         currentPlayer.Decrease();
 
