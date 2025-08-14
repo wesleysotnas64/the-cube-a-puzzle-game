@@ -24,6 +24,7 @@ public class Teleport : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        GetComponent<AudioSource>().Play();
         if (!isActiveToTeleport) return;
         goTo.SetIsActiveToTeleport(false);
 
